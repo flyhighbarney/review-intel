@@ -6,6 +6,8 @@ Built for SharkNinja's product categories: vacuums, blenders, air fryers, and co
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 
+**[Live Demo](https://review-intel.streamlit.app/)** — running on synthetic data, no API keys needed.
+
 ## What it does
 
 The system answers three questions a product manager actually cares about:
