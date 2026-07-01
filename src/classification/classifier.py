@@ -208,6 +208,7 @@ async def run_consistency_check(
 
 def _save_classified(reviews: list[ClassifiedReview]):
     out = CLASSIFIED_DIR / "reviews_classified.jsonl"
+    out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
         for r in reviews:
             f.write(r.model_dump_json() + "\n")

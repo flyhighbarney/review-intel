@@ -163,6 +163,7 @@ class CleaningPipeline:
 
     def _save_cleaned(self, reviews: list[RawReview]):
         out = CLEANED_DIR / "reviews_cleaned.jsonl"
+        out.parent.mkdir(parents=True, exist_ok=True)
         with open(out, "w", encoding="utf-8") as f:
             for r in reviews:
                 f.write(r.model_dump_json() + "\n")

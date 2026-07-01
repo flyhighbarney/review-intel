@@ -333,6 +333,7 @@ def _add_detail(category: str, theme: str, positive: bool) -> str:
 
 def _save_raw(reviews: list[RawReview]):
     out = RAW_DIR / "synthetic_reviews.jsonl"
+    out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
         for r in reviews:
             f.write(r.model_dump_json() + "\n")
