@@ -365,8 +365,21 @@ def main():
     recs = load_recommendations()
 
     if df.empty:
-        st.warning("No data found. Run `python run_demo.py` first.")
-        return
+        st.info("No data found — generating demo dataset (one-time, takes ~30 seconds)...")
+        try:
+            import subprocess
+            subprocess.run(
+                [sys.executable, str(ROOT / "run_demo.py")],
+                cwd=str(ROOT),
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            st.cache_data.clear()
+            st.rerun()
+        except Exception as e:
+            st.error(f"Auto-generation failed: {e}. Run `python run_demo.py` manually.")
+            return
 
     filtered = render_sidebar(df)
 
