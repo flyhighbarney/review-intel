@@ -385,17 +385,22 @@ def main():
 
     filtered = render_sidebar(df)
 
-    st.markdown("""
+    st.markdown(f"""
     <div class="header-bar">
         <h1>Product Review Intelligence</h1>
         <p>AI-powered consumer insights across Shark, Ninja &amp; top competitors &mdash;
-        {total:,} reviews across {cats} categories and {brands} brands</p>
+        {len(df):,} reviews across {df["category"].nunique()} categories and {df["brand"].nunique()} brands</p>
     </div>
-    """.format(
-        total=len(df),
-        cats=df["category"].nunique(),
-        brands=df["brand"].nunique(),
-    ), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""<div style="background: {BG_CARD}; border: 1px solid {BORDER}; border-radius: 8px;
+        padding: 10px 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.1rem;">&#9888;&#65039;</span>
+        <span style="color: {TEXT_SECONDARY}; font-size: 0.9rem;">
+        <strong style="color: {WARNING};">Demo Data</strong> &mdash;
+        This dashboard is running on synthetically generated reviews for demonstration purposes.
+        Connect API keys and run the full pipeline for real consumer data.</span>
+    </div>""", unsafe_allow_html=True)
 
     tab_exec, tab_issues, tab_compete, tab_products, tab_trends, tab_data = st.tabs([
         "  Executive Overview  ",
