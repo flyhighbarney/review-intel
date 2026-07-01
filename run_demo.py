@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from config import CLASSIFIED_DIR, REPORTS_DIR
+from config import CLASSIFIED_DIR, REPORTS_DIR, RAW_DIR, CLEANED_DIR
 from src.ingestion.synthetic import generate_synthetic_reviews
 from src.cleaning.pipeline import CleaningPipeline
 from src.utils.schema import ClassifiedReview, Theme, Sentiment, Source
@@ -162,6 +162,9 @@ def _simulate_classification(reviews) -> list[ClassifiedReview]:
 def main():
     log.section("SharkNinja Review Intel — Demo Mode")
     log.info("Generating synthetic data + simulated classification (no API keys needed)")
+
+    for d in [RAW_DIR, CLEANED_DIR, CLASSIFIED_DIR, REPORTS_DIR]:
+        d.mkdir(parents=True, exist_ok=True)
 
     # Phase 1
     reviews = generate_synthetic_reviews(count=5500)
