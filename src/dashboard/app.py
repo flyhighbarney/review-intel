@@ -368,17 +368,19 @@ def main():
         st.info("No data found — generating demo dataset (one-time, takes ~30 seconds)...")
         try:
             import subprocess
-            subprocess.run(
+            result = subprocess.run(
                 [sys.executable, str(ROOT / "run_demo.py")],
                 cwd=str(ROOT),
-                check=True,
                 capture_output=True,
                 text=True,
             )
+            if result.returncode != 0:
+                st.error(f"Demo generation failed:\n```\n{result.stderr[-2000:]}\n```")
+                return
             st.cache_data.clear()
             st.rerun()
         except Exception as e:
-            st.error(f"Auto-generation failed: {e}. Run `python run_demo.py` manually.")
+            st.error(f"Auto-generation failed: {e}")
             return
 
     filtered = render_sidebar(df)
